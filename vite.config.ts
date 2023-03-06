@@ -81,7 +81,7 @@ export default defineConfig({
       // 是否启动本地的mock文件，实质上是Mock开关
       localEnabled: true,
       // 是否在生产环境使用Mock
-      prodEnabled: false,
+      prodEnabled: true,
       // 用来动态控制生产环境是否开启Mock，通过动态添加代码到Main.ts中来实现
       // 如果直接把代码写到文件中，就会始终打包
       injectCode: `
