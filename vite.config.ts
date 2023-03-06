@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { viteMockServe } from 'vite-plugin-mock';
 import path from 'path';
 
 const pathSrc = path.resolve(__dirname, 'src');
@@ -68,6 +69,26 @@ export default defineConfig({
       compiler: 'vue3',
       autoInstall: true,
     }),
+    viteMockServe({
+      // TS文件支持，打开后将忽略js文件
+      supportTs: false,
+      // 模拟服务的文件夹，在设置了configPath后失效
+      mockPath: 'mock',
+      // 是否实时更新
+      watchFiles: true,
+      // 在模拟时忽略的文件名格式
+      ignore: /^\_/,
+      // 是否启动本地的mock文件，实质上是Mock开关
+      localEnabled: true,
+      // 是否在生产环境使用Mock
+      prodEnabled: false,
+      // 用来动态控制生产环境是否开启Mock，通过动态添加代码到Main.ts中来实现
+      // 如果直接把代码写到文件中，就会始终打包
+      injectCode: `
+      import { setupProdMockServer } from '../mock/_createProductionServer';
+      setupProdMockServer();
+      `,
+  })
   ],
   // 配置别名
   resolve: {
