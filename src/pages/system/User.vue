@@ -14,8 +14,11 @@ onMounted(() => {
     console.log(res);
   });
   axios.post('/mock/api/getList').then((res) => {
-  console.log(res);
-});
+    console.log(res);
+  });
+  axios.get('/api/getUser').then((res) => {
+    console.log(res);
+  });
 });
 
 </script>

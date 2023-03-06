@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "build:dev": "vite build --mode development",
-    "build:pro": "vite build --mode production",
+    "build": "vue-tsc && vite build USE_MOCK=true",
+    "build:dev": "vite build --mode development USE_MOCK=true",
+    "build:pro": "vite build --mode production USE_CHUNK_MOCK=true",
     "preview": "vite preview",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx"
   },

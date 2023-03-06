@@ -73,7 +73,7 @@ export default defineConfig({
       // TS文件支持，打开后将忽略js文件
       supportTs: false,
       // 模拟服务的文件夹，在设置了configPath后失效
-      mockPath: 'mock',
+      mockPath: './src/service/mock',
       // 是否实时更新
       watchFiles: true,
       // 在模拟时忽略的文件名格式
@@ -85,8 +85,8 @@ export default defineConfig({
       // 用来动态控制生产环境是否开启Mock，通过动态添加代码到Main.ts中来实现
       // 如果直接把代码写到文件中，就会始终打包
       injectCode: `
-      import { setupProdMockServer } from '../mock/_createProductionServer';
-      setupProdMockServer();
+        import { setupProdMockServer } from './mockProdServer';
+        setupProdMockServer();
       `,
   })
   ],
