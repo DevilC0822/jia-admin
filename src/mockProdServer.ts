@@ -1,7 +1,14 @@
 import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer';
-import testMock from './service/mock/test';
+const modules = import.meta.glob('./service/mock/*.ts');
 
-export const mockModules = [...testMock];
+const mockModules: any[] = [];
+for (const path in modules) {
+  modules[path]().then((mod) => {
+    mockModules.push(mod);
+  });
+}
+
+// export const mockModules = [...modules];
 
 export function setupProdMockServer() {
   createProdMockServer(mockModules);
