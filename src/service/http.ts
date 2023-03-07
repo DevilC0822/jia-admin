@@ -30,9 +30,8 @@ axios.interceptors.response.use((res) => {
 
 interface ResType<T> {
   code: number
-  data?: T
-  msg: string
-  err?: string
+  data?: any | null
+  message: string
 }
 interface Http {
   get<T>(url: string, params?: unknown): Promise<ResType<T>>

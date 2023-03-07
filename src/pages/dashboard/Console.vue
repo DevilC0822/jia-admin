@@ -155,7 +155,7 @@
               <template #default>
                 <div style="display: flex; align-items: center;">
                   <el-button link type="primary" size="small">编辑</el-button>
-                  <div style="width: 1px; height: 12px; background-color: #dcdfe6; margin: 0 3px;" />
+                  <el-divider direction="vertical" />
                   <el-button
                     style="margin-left: 0;"
                     link

@@ -3,8 +3,8 @@ import { MockMethod } from 'vite-plugin-mock';
 const arr: any = [];
 for (let index = 0; index < 20; index++) {
   arr.push({
-    customer_name: 'wade',
-    status_text: '登录成功',
+    customerName: 'wade',
+    statusText: '登录成功',
     os: 'Windows 10',
     browser: 'Chrome(99.0.4844.51)',
     ip: '192.168.9.110',
@@ -16,7 +16,7 @@ for (let index = 0; index < 20; index++) {
 const logList = {
   total: 31,
   page: 1,
-  page_size: 20,
+  pageSize: 20,
   list: arr,
 };
 
