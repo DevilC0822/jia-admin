@@ -3,12 +3,12 @@ const modules = import.meta.glob('./service/mock/*.ts');
 
 const mockModules: any[] = [];
 for (const path in modules) {
-  modules[path]().then((mod) => {
-    mockModules.push(mod);
+  modules[path]().then((mod: any) => {
+    if (mod.default) {
+      mockModules.push(...mod.default);
+    }
   });
 }
-
-// export const mockModules = [...modules];
 
 export function setupProdMockServer() {
   createProdMockServer(mockModules);
