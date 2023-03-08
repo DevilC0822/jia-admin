@@ -12,7 +12,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
-    './.eslintrc-auto-import.json',
+    './src/.eslintrc-auto-import.json',
   ], // 扩展
   parserOptions: {
     ecmaVersion: 12,
