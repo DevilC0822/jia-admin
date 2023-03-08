@@ -24,10 +24,15 @@ export default defineConfig({
         filepath: './src/.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
         globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
       },
+      resolvers: [
+        ElementPlusResolver(),
+      ],
       dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
     }),
 
     Components({
+      dirs: ['src/components'],
+      extensions: ['vue', 'ts', 'tsx'],
       resolvers: [
         // Auto register Element Plus components
         // 自动注册 Element Plus 组件
@@ -58,7 +63,7 @@ export default defineConfig({
       // 是否实时更新
       watchFiles: true,
       // 在模拟时忽略的文件名格式
-      ignore: /^\_/,
+      ignore: /^_/,
       // 是否启动本地的mock文件，实质上是Mock开关
       localEnabled: true,
       // 是否在生产环境使用Mock
@@ -69,12 +74,13 @@ export default defineConfig({
         import { setupProdMockServer } from './mockProdServer';
         setupProdMockServer();
       `,
-  })
+    })
   ],
   // 配置别名
   resolve: {
     alias: {
       '@': pathSrc,
+      '~/': `${pathSrc}/`,
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
   },

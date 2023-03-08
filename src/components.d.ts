@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    DropdownOptions: typeof import('./components/dropdownOptions.ts')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -14,6 +15,7 @@ declare module '@vue/runtime-core' {
     ElCol: typeof import('element-plus/es')['ElCol']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
@@ -40,6 +42,7 @@ declare module '@vue/runtime-core' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    FullScreenDialog: typeof import('./components/FullScreenDialog.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IEpArrowDownBold: typeof import('~icons/ep/arrow-down-bold')['default']
     IEpBell: typeof import('~icons/ep/bell')['default']
@@ -55,6 +58,8 @@ declare module '@vue/runtime-core' {
     IEpTrophy: typeof import('~icons/ep/trophy')['default']
     IMaterialSymbolsSignalCellularAlt: typeof import('~icons/material-symbols/signal-cellular-alt')['default']
     IMdiArrowExpandVertical: typeof import('~icons/mdi/arrow-expand-vertical')['default']
+    IMdiBaselineClose: typeof import('~icons/mdi/baseline-close')['default']
+    IMdiClose: typeof import('~icons/mdi/close')['default']
     IMdiDelete: typeof import('~icons/mdi/delete')['default']
     IMdiFullscreen: typeof import('~icons/mdi/fullscreen')['default']
     IMdiFullscreenExit: typeof import('~icons/mdi/fullscreen-exit')['default']

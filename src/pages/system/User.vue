@@ -58,7 +58,7 @@
     <el-card style="margin-top: 10px;">
       <div style="display: flex; justify-content: space-between;">
         <div>
-          <el-button type="primary">
+          <el-button type="primary" @click="() => { createDialogVisible = true }">
             <el-icon style="margin-right: 5px;">
               <IMdiPlus />
             </el-icon>
@@ -78,19 +78,11 @@
           </el-button>
         </div>
         <div class="right-box" style="display: flex; align-items: center;">
-          <el-tooltip
-            effect="dark"
-            content="表格斑马纹"
-            placement="bottom"
-          >
+          <el-tooltip effect="dark" content="表格斑马纹" placement="bottom">
             <el-switch v-model="tableZebraSwitch" />
           </el-tooltip>
           <el-divider direction="vertical" />
-          <el-tooltip
-            effect="dark"
-            content="刷新"
-            placement="bottom"
-          >
+          <el-tooltip effect="dark" content="刷新" placement="bottom">
             <el-icon :size="18">
               <IEpRefresh />
             </el-icon>
@@ -101,18 +93,14 @@
             </el-icon>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item @click="() => {tableFontSize = 12}">紧凑</el-dropdown-item>
-                <el-dropdown-item @click="() => {tableFontSize = 14}">默认</el-dropdown-item>
-                <el-dropdown-item @click="() => {tableFontSize = 16}">宽松</el-dropdown-item>
+                <el-dropdown-item @click="() => { tableFontSize = 12 }">紧凑</el-dropdown-item>
+                <el-dropdown-item @click="() => { tableFontSize = 14 }">默认</el-dropdown-item>
+                <el-dropdown-item @click="() => { tableFontSize = 16 }">宽松</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          
-          <el-tooltip
-            effect="dark"
-            content="列设置"
-            placement="bottom"
-          >
+
+          <el-tooltip effect="dark" content="列设置" placement="bottom">
             <el-icon :size="18">
               <IEpSetting />
             </el-icon>
@@ -143,23 +131,19 @@
         :stripe="tableZebraSwitch"
         :data="tableData"
         style="width: 100%; margin-top: 20px;"
-        :style="{fontSize: `${tableFontSize}px`}"
+        :style="{ fontSize: `${tableFontSize}px` }"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
         <el-table-column prop="userName" label="用户名" />
         <el-table-column prop="userName" label="头像">
           <template #default="scope">
-            <el-avatar shape="square" style="white-space: nowrap;" :style="{backgroundColor: scope.row.backgroundColor}">
+            <el-avatar shape="square" style="white-space: nowrap;" :style="{ backgroundColor: scope.row.backgroundColor }">
               {{ scope.row.userName }}
             </el-avatar>
           </template>
         </el-table-column>
-        <el-table-column prop="userName" label="登录账号">
-          <template #default="scope">
-            {{ pinyin(scope.row?.userName ?? '', { toneType: 'none' }) }}
-          </template>
-        </el-table-column>
+        <el-table-column prop="loginAccount" label="登录账号" />
         <el-table-column prop="phone" label="手机号" />
         <el-table-column prop="email" label="邮箱" />
         <el-table-column prop="sex" label="性别">
@@ -213,13 +197,88 @@
         :total="paginationTotal"
       />
     </el-card>
+    <FullScreenDialog
+      v-model="createDialogVisible"
+      draggable
+      title="添加用户"
+      :width="650"
+    >
+      <el-form :label-width="80" :inline="true" :model="addFormInline">
+        <el-row class="add-form-row">
+          <el-col :span="12">
+            <el-form-item required label="用户名">
+              <el-input v-model="addFormInline.userName" placeholder="请输入用户名" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item required label="手机">
+              <el-input v-model="addFormInline.phone" placeholder="请输入手机号码" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item required label="邮箱">
+              <el-input v-model="addFormInline.email" placeholder="请输入邮箱" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="性别">
+              <el-select v-model="addFormInline.status" placeholder="请选择性别">
+                <el-option label="男" :value="true" />
+                <el-option label="女" :value="false" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="状态">
+              <el-select v-model="addFormInline.status" placeholder="请选择状态">
+                <el-option label="正常" :value="true" />
+                <el-option label="禁用" :value="false" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="角色">
+              <el-select v-model="addFormInline.role" placeholder="请选择角色">
+                <el-option label="普通用户" :value="0" />
+                <el-option label="推广管理员" :value="1" />
+                <el-option label="发货管理员" :value="2" />
+                <el-option label="财务管理员" :value="3" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="登录账号">
+              <el-input v-model="addFormInline.loginAccount" placeholder="请输入登录账号" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="密码">
+              <el-input v-model="addFormInline.loginAccount" placeholder="请输入密码" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="确认密码">
+              <el-input v-model="addFormInline.loginAccount" placeholder="请再次输入密码" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="个人介绍">
+              <el-input v-model="addFormInline.loginAccount" placeholder="请输入个人介绍" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <template #footer>
+        <el-button @click="() => { createDialogVisible = false }">取消</el-button>
+        <el-button type="primary" @click="addUserBtnClick">保存</el-button>
+      </template>
+    </FullScreenDialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import screenfull from 'screenfull';
 import { ElMessage } from 'element-plus';
-import { pinyin } from 'pinyin-pro';
 import userApi from '@/service/api/user';
 
 interface IUser {
@@ -296,6 +355,34 @@ const fullScreenToggle = () => {
 };
 const tableData = ref<IUser[]>([]);
 
+const createDialogVisible = ref(false);
+const addFormInline = ref({
+  userName: '',
+  phone: '',
+  email: '',
+  sex: '',
+  status: '',
+  role: '',
+  loginAccount: '',
+  password: '',
+  verifyPassword: '',
+  userDesc: '',
+});
+const addUserBtnClick = () => {
+  if (!addFormInline.value.userName || !addFormInline.value.phone || !addFormInline.value.email) {
+    ElMessage({
+      message: '请输入必须信息',
+      type: 'warning',
+    });
+    return;
+  }
+  ElMessage({
+    message: '添加成功',
+    type: 'success',
+  });
+  createDialogVisible.value = false;
+  searchTable();
+};
 
 function searchTable() {
   const params = {
@@ -326,7 +413,8 @@ watch(paginationInfo, () => {
 </script>
 
 <style scoped lang="scss">
-.form-row {
+.form-row,
+.add-form-row {
   margin-top: 18px;
 
   ::v-deep(.el-form-item) {

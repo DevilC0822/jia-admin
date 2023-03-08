@@ -12,13 +12,13 @@ interface IOpt {
 
 const { Random } = Mock;
 const originList: any[] = [];
-const count = 100;
+const count = 888;
 
 for (let i = 0; i < count; i++) {
   originList.push({
     userName: Random.cname(),
     backgroundColor: Random.color(),
-    analysisStatus: Random.first(),
+    loginAccount: Random.first(),
     phone: Random.natural(10000000000, 19999999999),
     email: Random.email(),
     sex: Random.boolean() ? '男' : '女',
@@ -33,7 +33,7 @@ export default [
     url: '/mock/api/getUserList',
     method: 'post',
     response: (opt: IOpt) => {
-      const { size, current } = opt.body;
+      const { size, current, ...other } = opt.body;
       if (!size || !current) {
         return {
           code: 200,
@@ -41,10 +41,19 @@ export default [
           data: null,
         };
       }
-      const total = originList.length;
+      const result: any[] = originList.filter((item) => {
+        return item.userName.includes(other.userName) &&
+        item.loginAccount.includes(other.loginAccount) &&
+        String(item.phone).includes(String(other.phone)) &&
+        item.userName.includes(other.userName) &&
+        (String(other.role) ? item.role === other.role : 1) &&
+        (String(other.status) ? item.status === other.status : 1);
+      });
+
+      const total = result.length;
       const len = total / size;
       const pages = Number.isInteger(len) ? len : Math.ceil(len);
-      const data = originList.slice((current - 1) * size, current * size);
+      const data = result.slice((current - 1) * size, current * size);
       return {
         code: 200,
         message: '',
